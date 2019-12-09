@@ -3,7 +3,7 @@
  */
 
 import videojs from 'video.js';
-
+import States from './states.js';
 import {version as adsVersion} from '../package.json';
 
 export default function getAds(player) {
@@ -51,7 +51,7 @@ export default function getAds(player) {
 
     VERSION: adsVersion,
 
-    reset() {
+    reset(resetState) {
       player.ads.disableNextSnapshotRestore = false;
       player.ads._contentEnding = false;
       player.ads._contentHasEnded = false;
@@ -62,9 +62,12 @@ export default function getAds(player) {
       player.ads._cancelledPlay = false;
       player.ads._shouldBlockPlay = false;
       player.ads._playBlocked = false;
-      player.ads.nopreroll_ = false;
-      player.ads.nopostroll_ = false;
       player.ads._playRequested = false;
+      if (resetState === true) {
+        player.ads.nopreroll_ = true;
+        player.ads.nopostroll_ = true;
+        player.ads._state.transitionTo(States.getState('BeforePreroll'));
+      }
     },
 
     // Call this when an ad response has been received and there are
