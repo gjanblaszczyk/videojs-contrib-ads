@@ -1708,7 +1708,7 @@
     _proto.onAdsError = function onAdsError(player) {
       var _this3 = this;
 
-      videojs.log('adserror (Preroll)'); // In the future, we may not want to do this automatically.
+      player.ads.debug('adserror (Preroll)'); // In the future, we may not want to do this automatically.
       // Ad plugins should be able to choose to continue the ad break
       // if there was an error.
 
