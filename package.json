@@ -18,7 +18,7 @@
     "build": "npm-run-all -p build:*",
     "build:css": "npm-run-all build:css:sass build:css:copy",
     "build:css:copy": "shx cp dist/videojs-contrib-ads.css dist/videojs.ads.css",
-    "build:css:sass": "node-sass src/plugin.scss dist/videojs-contrib-ads.css --output-style=compressed --linefeed=lf",
+    "build:css:sass": "sass src/plugin.scss dist/videojs-contrib-ads.css --style=compressed --no-source-map",
     "build:js": "npm-run-all build:js:rollup build:js:copy build:js:copy-min",
     "build:js:copy": "shx cp dist/videojs-contrib-ads.js dist/videojs.ads.js",
     "build:js:copy-min": "shx cp dist/videojs-contrib-ads.min.js dist/videojs.ads.min.js",
@@ -37,16 +37,16 @@
     "preversion": "npm test",
     "version": "is-prerelease || npm run update-changelog && git add CHANGELOG.md",
     "watch": "npm-run-all -p watch:*",
-    "watch:css": "npm run build:css:sass -- -w",
+    "watch:css": "sass --watch src/plugin.scss:dist/videojs-contrib-ads.css --style=compressed --no-source-map",
     "watch:js": "npm run build:js:rollup -- -w",
     "prepublishOnly": "npm-run-all build test:verify"
   },
   "devDependencies": {
     "@videojs/generator-helpers": "~1.0.0",
     "karma": "^4.0.1",
-    "lodash": "^4.17.15",
-    "node-sass": "^8.0.0",
+    "lodash": "^4.17.23",
     "rollup": "1.1.0",
+    "sass": "^1.77.8",
     "sinon": "^2.2.0",
     "videojs-generate-karma-config": "~5.1.0",
     "videojs-generate-rollup-config": "~3.1.0",
@@ -78,7 +78,7 @@
   ],
   "dependencies": {
     "global": "^4.3.2",
-    "video.js": "^6 || ^7"
+    "video.js": "^7.21.7"
   },
   "generator-videojs-plugin": {
     "version": "7.6.1"
